@@ -1,1 +1,45 @@
-env
+# Python-related files
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtual environment directories (if you're using venv)
+venv/
+env/
+
+# IDE and editor-specific files
+.idea/
+.vscode/
+
+# Logs and data files
+logs/
+data/
+
+# FastAPI generated files
+__pydantic_main__.py
+__init__.py
+alembic.ini
+alembic/versions/
+
+# Exclude the mounted directories here
+# Replace "mounted_directory_1/" and "mounted_directory_2/" with the actual names of your mounted directories
+common/db/mysqldb
+# Exclude sensitive configuration files containing secrets
+config.yml
+config.json
+
+# Ignore compiled Python files if you're using a different version of Python
+__pycache__/ 
+*.pyc
+
+# Ignore .env file if you're using environment variables
+.env
+
+# Ignore generated documentation or API documentation if applicable
+docs/
+
+# Ignore any build or package files
+build/
+dist/
+*.egg-info/
