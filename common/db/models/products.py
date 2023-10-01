@@ -1,36 +1,24 @@
 # common_db/models/products.py
-from sqlalchemy import Column, Integer, String, Float, ForeignKey
+from sqlalchemy import Column, Integer, String, Float, ForeignKey,DateTime
 from sqlalchemy.orm import relationship
 from common.db.base import Base
-from common.db.session import SessionLocal
-
 
 
 class Product(Base):
-    _tablename_ = "products"
+    __tablename__ = "products"
 
-    product_id = Column(Integer, primary_key=True, index=True)
-    category_id = Column(Integer, ForeignKey('categories.category_id'))
-    product_name = Column(String, index=True)
-    product_description = Column(String)
-    product_price = Column(Float)
-    product_image = Column(String)
+    id = Column(Integer, primary_key=True, index=True)
+    # category_id = Column(Integer, ForeignKey("categories.category_id"))
+    name = Column(String(60), index=True)
+    description = Column(String(255))
+    price = Column(Float)
+    image = Column(String(255))
 
-    category = relationship("Category", back_populates="products")
+    # category = relationship("Category", back_populates="products")
 
-    @classmethod
-    def get_by_id(cls, product_id: int):
-        db = SessionLocal()
-        product = db.query(cls).filter(cls.product_id == product_id).first()
-        db.close()
-        return product
-
-    @classmethod
-    def create(cls, **kwargs):
-        db = SessionLocal()
-        product = cls(**kwargs)
-        db.add(product)
-        db.commit()
-        db.refresh(product)
-        db.close()
-        return product
+    # @classmethod
+    # def get_by_id(cls, product_id: int):
+    #     db = SessionLocal()
+    #     product = db.query(cls).filter(cls.product_id == product_id).first()
+    #     db.close()
+    #     return product

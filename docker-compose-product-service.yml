@@ -1,0 +1,16 @@
+version: '1.0'
+
+services:
+  product_service:
+    build:
+      context: ./services/product_service
+      dockerfile: Dockerfile
+    ports:
+      - 8000:8000
+    environment:
+      DATABASE_URL: mysql+pymysql://user:password@db/mydatabase
+    restart: always
+    command: bash -c "uvicorn main:app --host 0.0.0.0 --port 8000 --reload"
+    volumes:
+      - ./services/product_service:/app
+      - ./common:/app/common
