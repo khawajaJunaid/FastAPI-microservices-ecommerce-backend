@@ -22,8 +22,8 @@ start_containers() {
   fi
 
   # Start the containers
-  docker-compose -f "$DB_COMPOSE_FILE" up -d --build
-  docker-compose -f "$APP_COMPOSE_FILE" up -d --build
+  docker-compose -f "$DB_COMPOSE_FILE" up -d 
+  docker-compose -f "$APP_COMPOSE_FILE" up -d 
 }
 
 # Main script logic
