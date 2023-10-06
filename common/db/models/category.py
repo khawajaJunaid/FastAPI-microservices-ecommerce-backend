@@ -21,6 +21,6 @@ class Category(Base):
         index=True,
     )
     description = Column(String(255), nullable=True)
-
     # Define a relationship with products
     products = relationship("Product", back_populates="category")
+    inventory_transactions = relationship("Inventory", back_populates="category")

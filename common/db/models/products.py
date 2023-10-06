@@ -27,11 +27,6 @@ class Product(Base):
         ),
         default=ProductStatus.ACTIVE.value,
     )
+    current_inventory = Column(Integer, default=0)
     category = relationship("Category", back_populates="products")
-
-    # @classmethod
-    # def get_by_id(cls, product_id: int):
-    #     db = SessionLocal()
-    #     product = db.query(cls).filter(cls.product_id == product_id).first()
-    #     db.close()
-    #     return product
+    inventory_transactions = relationship("Inventory", back_populates="product")
