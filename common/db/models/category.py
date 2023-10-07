@@ -24,3 +24,4 @@ class Category(Base):
     # Define a relationship with products
     products = relationship("Product", back_populates="category")
     inventory_transactions = relationship("Inventory", back_populates="category")
+    sales = relationship("Sales", back_populates="category")

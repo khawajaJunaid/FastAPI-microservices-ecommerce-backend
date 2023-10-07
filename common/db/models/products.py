@@ -30,3 +30,4 @@ class Product(Base):
     current_inventory = Column(Integer, default=0)
     category = relationship("Category", back_populates="products")
     inventory_transactions = relationship("Inventory", back_populates="product")
+    sales = relationship("Sales", back_populates="products")
