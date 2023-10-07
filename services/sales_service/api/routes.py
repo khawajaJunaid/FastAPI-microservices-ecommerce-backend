@@ -1,18 +1,15 @@
 from fastapi import APIRouter, Depends, HTTPException, status
-from api.schemas import (
-    SalesCreate,
-    Sales,
-)
+from api.schemas import SalesCreate, Sales, SalesRequestParams
 from starlette.responses import RedirectResponse
-from api.controller import (
-    create_product_sale_transaction,
-)
+from api.controller import create_product_sale_transaction, fetch_sales
 import traceback
 from common.db.session import get_db
 from sqlalchemy.orm import Session
 from common.custom_exceptions import (
     ProductNotFoundException,
     ProductOutofStockException,
+    ProductInventoryUpdateException,
+    NoSalesDataFoundException,
 )
 
 router = APIRouter()
@@ -43,6 +40,32 @@ def create_product_sale(potential_sale: SalesCreate, db: Session = Depends(get_d
         print(e)
         print(traceback.format_exc())
         raise HTTPException(status_code=500, detail="Internal Server Error")
+
+
+@router.post("/retrieve_sales")
+def get_sales_for_product(params: SalesRequestParams, db: Session = Depends(get_db)):
+    """
+    Get all sales transactions based on query parameters
+    """
+    try:
+        result = fetch_sales(
+            db,
+            product_id=params.product_id,
+            category=params.category,
+            start_date=params.start_date,
+            end_date=params.end_date,
+            group_by=params.group_by,
+        )
+
+        return result
+    except ProductNotFoundException as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+    except NoSalesDataFoundException as error:
+        raise HTTPException(status_code=404, detail=str(error)) from error
+    except Exception as e:
+        print(e)
+        print(traceback.format_exc())
+        raise HTTPException(status_code=500, detail="Internal Server Error") from e
 
 
 # # Define a model for the revenue data

@@ -7,7 +7,12 @@ from common.custom_exceptions import (
     ProductNotFoundException,
     ProductOutofStockException,
     ProductInventoryUpdateException,
+    NoSalesDataFoundException,
 )
+from datetime import datetime
+from sqlalchemy import func
+from datetime import datetime
+from sqlalchemy.orm.exc import NoResultFound
 
 
 def create_product_sale_transaction(sale: Sales, db: Session):
@@ -75,3 +80,201 @@ def decrement_product_inventory(new_quantity: int, product_id: int):
     result = requests.put(url=url, json=update_inventory_body)
 
     return result
+
+
+def fetch_sales(
+    db: Session,
+    product_id=None,
+    category=None,
+    start_date=None,
+    end_date=None,
+    group_by=None,
+):
+    """
+    Fetches sales data from the database based on the specified criteria.
+
+    Args:
+        db (Session): The database session object.
+        product_id (int, optional): The ID of the product to filter by. Defaults to None.
+        category (str, optional): The name of the category to filter by. Defaults to None.
+        start_date (datetime, optional): The start date to filter by. Defaults to None.
+        end_date (datetime, optional): The end date to filter by. Defaults to None.
+        group_by (str, optional): The time period to group the sales data by (day, month, year, category-year, category-month, category-date, product_id-year, product_id-month, product_id-date, etc.). Defaults to None.
+
+    Returns:
+        List: A list of sales data matching the specified criteria, including product ID and category.
+
+    Raises:
+        NoSalesDataFoundException: If no sales data is found for the specified criteria.
+        ProductNotFoundException: If the specified product ID is not found in the database.
+    """
+    try:
+        # Build the query with selected columns
+        sales_query = db.query(
+            Sales.product_id,
+            Sales.category_name,
+            func.max(Sales.sold_at).label("last_sold_at"),
+            func.sum(Sales.units_sold).label("total_units_sold"),
+            func.sum(Sales.total_price).label("total_revenue"),
+        )
+
+        # Check if product exists
+        if product_id is not None:
+            product_details = get_product_details_by_id(product_id)
+
+            # Check if the specified product exists
+            if product_details.status_code != HttpStatus.OK:
+                raise ProductNotFoundException("Product not found")
+
+            sales_query = sales_query.filter(Sales.product_id == product_id)
+
+        if category is not None:
+            sales_query = sales_query.filter(Sales.category_name == category)
+
+        if start_date is None:
+            start_date = datetime.min
+        if end_date is None:
+            end_date = datetime.now()
+
+        sales_query = sales_query.filter(
+            Sales.sold_at >= start_date, Sales.sold_at <= end_date
+        )
+
+        # Apply grouping if specified
+        if group_by:
+            if group_by == "day":
+                # Group by day
+                sales_query = sales_query.group_by(
+                    Sales.product_id,
+                    Sales.category_name,
+                    func.DATE(Sales.sold_at),
+                )
+            elif group_by == "month":
+                # Group by month
+                sales_query = sales_query.group_by(
+                    Sales.product_id,
+                    Sales.category_name,
+                    func.YEAR(Sales.sold_at),
+                    func.MONTH(Sales.sold_at),
+                )
+            elif group_by == "year":
+                # Group by year
+                sales_query = sales_query.group_by(
+                    Sales.product_id,
+                    Sales.category_name,
+                    func.YEAR(Sales.sold_at),
+                )
+            elif group_by == "category-year":
+                # Group by category and year
+                sales_query = sales_query.group_by(
+                    Sales.category_name,
+                    func.extract("year", Sales.sold_at).label("year"),
+                )
+                # Exclude product_id from the select
+                sales_query = sales_query.with_entities(
+                    Sales.category_name,
+                    func.extract("year", Sales.sold_at).label("year"),
+                    func.max(Sales.sold_at).label("last_sold_at"),
+                    func.sum(Sales.units_sold).label("total_units_sold"),
+                    func.sum(Sales.total_price).label("total_revenue"),
+                )
+            elif group_by == "category-month":
+                # Group by category and month
+                sales_query = sales_query.group_by(
+                    Sales.category_name,
+                    func.extract("year", Sales.sold_at).label("year"),
+                    func.extract("month", Sales.sold_at).label("month"),
+                )
+                # Exclude product_id from the select
+                sales_query = sales_query.with_entities(
+                    Sales.category_name,
+                    func.extract("year", Sales.sold_at).label("year"),
+                    func.extract("month", Sales.sold_at).label("month"),
+                    func.max(Sales.sold_at).label("last_sold_at"),
+                    func.sum(Sales.units_sold).label("total_units_sold"),
+                    func.sum(Sales.total_price).label("total_revenue"),
+                )
+            elif group_by == "category-date":
+                # Group by category and date
+                sales_query = sales_query.group_by(
+                    Sales.category_name,
+                    func.DATE(Sales.sold_at),
+                )
+                # Exclude product_id from the select
+                sales_query = sales_query.with_entities(
+                    Sales.category_name,
+                    func.DATE(Sales.sold_at).label("date"),
+                    func.max(Sales.sold_at).label("last_sold_at"),
+                    func.sum(Sales.units_sold).label("total_units_sold"),
+                    func.sum(Sales.total_price).label("total_revenue"),
+                )
+            elif group_by == "product_id-year":
+                # Group by product_id and year
+                sales_query = sales_query.group_by(
+                    Sales.product_id,
+                    func.extract("year", Sales.sold_at).label("year"),
+                )
+                # Exclude category_name from the select
+                sales_query = sales_query.with_entities(
+                    Sales.product_id,
+                    func.extract("year", Sales.sold_at).label("year"),
+                    func.max(Sales.sold_at).label("last_sold_at"),
+                    func.sum(Sales.units_sold).label("total_units_sold"),
+                    func.sum(Sales.total_price).label("total_revenue"),
+                )
+            elif group_by == "product_id-month":
+                # Group by product_id and month
+                sales_query = sales_query.group_by(
+                    Sales.product_id,
+                    func.extract("year", Sales.sold_at).label("year"),
+                    func.extract("month", Sales.sold_at).label("month"),
+                )
+                # Exclude category_name from the select
+                sales_query = sales_query.with_entities(
+                    Sales.product_id,
+                    func.extract("year", Sales.sold_at).label("year"),
+                    func.extract("month", Sales.sold_at).label("month"),
+                    func.max(Sales.sold_at).label("last_sold_at"),
+                    func.sum(Sales.units_sold).label("total_units_sold"),
+                    func.sum(Sales.total_price).label("total_revenue"),
+                )
+            elif group_by == "product_id-date":
+                # Group by product_id and date
+                sales_query = sales_query.group_by(
+                    Sales.product_id,
+                    func.DATE(Sales.sold_at),
+                )
+                # Exclude category_name from the select
+                sales_query = sales_query.with_entities(
+                    Sales.product_id,
+                    func.DATE(Sales.sold_at).label("date"),
+                    func.max(Sales.sold_at).label("last_sold_at"),
+                    func.sum(Sales.units_sold).label("total_units_sold"),
+                    func.sum(Sales.total_price).label("total_revenue"),
+                )
+            elif group_by == "category":
+                # Group only by category
+                sales_query = sales_query.group_by(
+                    Sales.category_name,
+                )
+                sales_query = sales_query.with_entities(
+                    Sales.category_name,
+                    func.max(Sales.sold_at).label("last_sold_at"),
+                    func.sum(Sales.units_sold).label("total_units_sold"),
+                    func.sum(Sales.total_price).label("total_revenue"),
+                )
+
+        result = sales_query.all()
+
+        if not result:
+            raise NoSalesDataFoundException(
+                "No sales data found for the specified criteria"
+            )
+
+        return result
+
+    except NoResultFound as exc:
+        raise ProductNotFoundException("Product not found") from exc
+
+    except Exception as e:
+        raise e

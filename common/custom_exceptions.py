@@ -14,3 +14,9 @@ class ProductOutofStockException(Exception):
     def __init__(self, message="Product is out of stock, please stay tuned!"):
         self.message = message
         super().__init__(self.message)
+
+
+class NoSalesDataFoundException(Exception):
+    def __init__(self, message="No sales data found for the conditions specified"):
+        self.message = message
+        super().__init__(self.message)
