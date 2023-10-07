@@ -18,7 +18,6 @@ data/
 
 # FastAPI generated files
 __pydantic_main__.py
-__init__.py
 alembic.ini
 alembic/versions/
 
