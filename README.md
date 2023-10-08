@@ -18,8 +18,8 @@ Before running the project on your system, make sure you have the following:
 1. Clone the repository:
 
    ```bash
-   git clone https://github.com/your-username/your-fastapi-project.git
-   cd your-fastapi-project
+   git clone https://github.com/<your-username>/ecommerce.git
+   cd ecommerce
    ```
 
 2. The project includes Docker Compose files that start up containers for the database and the two microservices to make the system work.
