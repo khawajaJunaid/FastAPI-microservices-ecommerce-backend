@@ -1,4 +1,3 @@
-Certainly! Here's an improved version of your E-Commerce Manager Backend documentation with added emojis and formatting for a more engaging look:
 
 # 🛒 E-Commerce Manager Backend 📈
 
