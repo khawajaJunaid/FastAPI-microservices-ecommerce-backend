@@ -10,6 +10,7 @@ from common.custom_exceptions import (
     ProductOutofStockException,
     ProductInventoryUpdateException,
     NoSalesDataFoundException,
+    InsufficientInventoryException,
 )
 
 router = APIRouter()
@@ -32,10 +33,14 @@ def create_product_sale(potential_sale: SalesCreate, db: Session = Depends(get_d
     try:
         created_sales_transaction = create_product_sale_transaction(potential_sale, db)
         return created_sales_transaction
+    except InsufficientInventoryException as error:
+        raise HTTPException(status_code=422, detail=str(error))
     except ProductOutofStockException as error:
         raise HTTPException(status_code=422, detail=str(error))
     except ProductNotFoundException as error:
         raise HTTPException(status_code=404, detail=str(error))
+    except ProductInventoryUpdateException as error:
+        raise HTTPException(status_code=500, detail=str(error))
     except Exception as e:
         print(e)
         print(traceback.format_exc())

@@ -9,8 +9,6 @@ class SalesBase(BaseModel):
     product_id: int
     category_name: ProductCategory
     units_sold: int = 0
-    revenue: float
-    total_price: float
 
     @validator("category_name")
     def validate_category(cls, value):
