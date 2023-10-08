@@ -9,6 +9,39 @@ from common.Enums.product_enums import ProductCategory
 
 
 class Product(Base):
+    """
+    A class representing a product in the ecommerce system.
+
+    Attributes:
+    -----------
+    id : int
+        The unique identifier of the product.
+    category_name : str
+        The name of the category that the product belongs to.
+    name : str
+        The name of the product.
+    description : str
+        The description of the product.
+    price : float
+        The price of the product.
+    image : str
+        The URL of the image of the product.
+    created_at : datetime
+        The date and time when the product was created.
+    updated_at : datetime
+        The date and time when the product was last updated.
+    status : ProductStatus
+        The status of the product (ACTIVE, INACTIVE).
+    current_inventory : int
+        The current inventory of the product.
+    category : Category
+        The category that the product belongs to.
+    inventory_transactions : List[Inventory]
+        The list of inventory transactions associated with the product.
+    sales : List[Sales]
+        The list of sales associated with the product.
+    """
+
     __tablename__ = "products"
 
     id = Column(Integer, primary_key=True, index=True)

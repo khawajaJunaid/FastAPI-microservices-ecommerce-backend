@@ -8,6 +8,34 @@ from common.Enums.product_enums import ProductCategory
 
 
 class Sales(Base):
+    """
+    A class used to represent sales data.
+
+    Attributes
+    ----------
+    id : int
+        The unique identifier for the sale.
+    product_id : int
+        The unique identifier for the product being sold.
+    category_name : str
+        The name of the category the product belongs to.
+    units_sold : int
+        The number of units sold.
+    sold_at : datetime
+        The date and time the sale was made.
+    total_price : float
+        The total price of the sale.
+    revenue : float
+        The revenue generated from the sale.
+
+    Relationships
+    -------------
+    products : relationship
+        The relationship between the sale and the product being sold.
+    category : relationship
+        The relationship between the sale and the category the product belongs to.
+    """
+
     __tablename__ = "sales"
 
     id = Column(Integer, primary_key=True, index=True)

@@ -9,6 +9,34 @@ from sqlalchemy import Enum
 
 
 class Category(Base):
+    """
+    A class representing a category of products in the ecommerce system.
+
+    Attributes:
+    -----------
+    category_id : int
+        The unique identifier for the category.
+    name : ProductCategory
+        The name of the category.
+    description : str
+        A brief description of the category.
+    products : List[Product]
+        A list of products in the category.
+    inventory_transactions : List[Inventory]
+        A list of inventory transactions for the category.
+    sales : List[Sales]
+        A list of sales for the category.
+
+    relationships:
+    --------------
+    products : relationship
+        The relationship between the category and the products in the category.
+    inventory_transactions : relationship
+        The relationship between the category and the inventory transactions for the category.
+    sales : relationship
+        The relationship between the category and the sales for the category.
+    """
+
     __tablename__ = "categories"
 
     category_id = Column(Integer, primary_key=True, index=True)

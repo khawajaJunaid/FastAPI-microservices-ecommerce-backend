@@ -45,7 +45,22 @@ def create_product_sale(potential_sale: SalesCreate, db: Session = Depends(get_d
 @router.post("/retrieve_sales")
 def get_sales_for_product(params: SalesRequestParams, db: Session = Depends(get_db)):
     """
-    Get all sales transactions based on query parameters
+    Fetches sales data from the database based on the specified criteria.
+
+    Args:
+        db (Session): The database session object.
+        product_id (int, optional): The ID of the product to filter by. Defaults to None.
+        category (str, optional): The name of the category to filter by. Defaults to None.
+        start_date (datetime, optional): The start date to filter by. Defaults to None.
+        end_date (datetime, optional): The end date to filter by. Defaults to None.
+        group_by (str, optional): The time period to group the sales data by (day, month, year, category-year, category-month, category-date, product_id-year, product_id-month, product_id-date, etc.). Defaults to None.
+
+    Returns:
+        List: A list of sales data matching the specified criteria, including product ID and category.
+
+    Raises:
+        NoSalesDataFoundException: If no sales data is found for the specified criteria.
+        ProductNotFoundException: If the specified product ID is not found in the database.
     """
     try:
         result = fetch_sales(
