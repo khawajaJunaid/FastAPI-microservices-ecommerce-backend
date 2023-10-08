@@ -8,6 +8,32 @@ from common.Enums.product_enums import ProductCategory
 
 
 class Inventory(Base):
+    """
+    A class used to represent the inventory of a product.
+
+    Attributes
+    ----------
+    id : int
+        The unique identifier of the inventory transaction.
+    product_id : int
+        The unique identifier of the product associated with the inventory transaction.
+    category_name : str
+        The name of the category associated with the inventory transaction.
+    inventory_quantity : int
+        The quantity of the product in the inventory.
+    inserted_at : datetime
+        The date and time when the inventory transaction was inserted.
+    low_stock_alert_threshold : int
+        The minimum quantity of the product that triggers a low stock alert.
+
+    Relationships
+    -------------
+    product : Product
+        The product associated with the inventory transaction.
+    category : Category
+        The category associated with the inventory transaction.
+    """
+
     __tablename__ = "inventory_transactions"
 
     id = Column(Integer, primary_key=True, index=True)
