@@ -37,7 +37,7 @@ Before running the project on your system, make sure you have the following:
   docker exec -i ecommerce-db-1 sh -c 'exec mysql -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE' < ./common/db/dump/dump.sql
 ```
 
-**Note** : Incase the above command runs into an issue, the volume mount can instead be downloaded from [demo data volume mount](https://drive.google.com/drive/folders/1NLMc0dkwW-gDAlfAC5HrVxUcuyU-woCF?usp=sharing) and placed in the
+**Note** : Incase the above command runs into an issue, the volume mount can instead be downloaded from [demo data volume mount](https://drive.google.com/drive/folders/1NLMc0dkwW-gDAlfAC5HrVxUcuyU-woCF?usp=drive_link) and placed in the
 `common/db` and execute the above command as it is.
 
 ## Documentation 📚
