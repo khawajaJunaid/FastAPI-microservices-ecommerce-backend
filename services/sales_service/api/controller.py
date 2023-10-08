@@ -8,11 +8,13 @@ from common.custom_exceptions import (
     ProductOutofStockException,
     ProductInventoryUpdateException,
     NoSalesDataFoundException,
+    InsufficientInventoryException,
 )
 from datetime import datetime
 from sqlalchemy import func
 from datetime import datetime
 from sqlalchemy.orm.exc import NoResultFound
+from sqlalchemy.exc import SQLAlchemyError
 
 
 def create_product_sale_transaction(sale: Sales, db: Session):
@@ -23,33 +25,60 @@ def create_product_sale_transaction(sale: Sales, db: Session):
     - create product sale transaction in db
 
     """
-    db_sale = Sales(**sale.dict())
+    try:
+        db_sale = Sales(**sale.dict())
 
-    print("payload received for sale: ", vars(db_sale))
-    product_service_response = get_product_details_by_id(db_sale.product_id)
+        print("payload received for sale: ", vars(db_sale))
+        product_service_response = get_product_details_by_id(db_sale.product_id)
 
-    if product_service_response.status_code != HttpStatus.OK:
-        raise ProductNotFoundException("Product not found")
-    product_service_response = product_service_response.json()
-    print("product_service_response: ", product_service_response)
-    current_inventory_quantity = product_service_response.get("current_inventory")
-    if current_inventory_quantity >= db_sale.units_sold:
-        print("Product stock exists for sale")
-        set_quantity_after_decrement = current_inventory_quantity - db_sale.units_sold
-        product_update_response = decrement_product_inventory(
-            set_quantity_after_decrement, db_sale.product_id
-        )
-        if product_update_response.status_code != HttpStatus.OK:
-            raise ProductInventoryUpdateException("Error updating product inventory")
+        if product_service_response.status_code != HttpStatus.OK:
+            raise ProductNotFoundException("Product not found")
+
+        product_service_response = product_service_response.json()
+        print("product_service_response: ", product_service_response)
+        current_inventory_quantity = product_service_response.get("current_inventory")
+
+        if current_inventory_quantity >= db_sale.units_sold:
+            print("Product stock exists for sale")
+            set_quantity_after_decrement = (
+                current_inventory_quantity - db_sale.units_sold
+            )
+            product_update_response = decrement_product_inventory(
+                set_quantity_after_decrement, db_sale.product_id
+            )
+            if product_update_response.status_code != HttpStatus.OK:
+                raise ProductInventoryUpdateException(
+                    "Error updating product inventory"
+                )
+            else:
+                print("Product inventory updated")
+                # Calculate total_price and revenue based on price and units_sold
+                db_sale.total_price = (
+                    product_service_response["price"] * db_sale.units_sold
+                )
+                db_sale.revenue = db_sale.total_price
+                db.add(db_sale)
+                db.commit()
+                db.refresh(db_sale)
+                return db_sale
+        elif current_inventory_quantity > 0:
+            reduce_by = db_sale.units_sold - current_inventory_quantity
+            print("Product available for ordering but in reduced quantity")
+            raise InsufficientInventoryException(
+                f"Insufficient inventory for full order. You can order a reduced quantity, please reduce the quantity by {reduce_by}"
+            )
         else:
-            print("Product inventory updated")
-            db.add(db_sale)
-            db.commit()
-            db.refresh(db_sale)
-            return db_sale
-    else:
-        print("Product has gone out of stock!")
-        raise ProductOutofStockException("Product has gone out of stock!")
+            print("Product has gone out of stock!")
+            raise ProductOutofStockException("Product has gone out of stock!")
+
+    except SQLAlchemyError as e:
+        # Rollback the transaction if an exception occurs
+        db.rollback()
+        raise e  # Re-raise the exception to handle it at a higher level
+
+    finally:
+        # Close the session when done
+        db.close()
 
 
 def get_product_details_by_id(product_id: int):
@@ -263,7 +292,14 @@ def fetch_sales(
                     func.sum(Sales.units_sold).label("total_units_sold"),
                     func.sum(Sales.total_price).label("total_revenue"),
                 )
-
+        else:
+            # Group by product_id and category
+            sales_query = sales_query.group_by(
+                Sales.product_id,
+                Sales.category_name,
+                Sales.sold_at
+            )
+        print("sales query statement \n\n\n", sales_query.statement, "\n\n\n\n")
         result = sales_query.all()
 
         if not result:
