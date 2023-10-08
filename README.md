@@ -40,6 +40,14 @@ Before running the project on your system, make sure you have the following:
 **Note** : Incase the above command runs into an issue, the volume mount can instead be downloaded from `https://drive.google.com/drive/folders/1NLMc0dkwW-gDAlfAC5HrVxUcuyU-woCF?usp=sharing` and placed in the
 `common/db` and execute the above command as it is.
 
+### Demo data (insights extracted)
+
+The data has been limited to two electronics products nad one fashion product populated with their invenotry changes and sales data over a period of 2 years to enable some comparison and insights, as a proof of concept that the same can be done across more than two categories if need be.
+
+In the comparison over the years, the year 2022 had more sales collectively with more revenue in flow as compared to 2023. In `category` the best seller compared among the two had been electronics by out numbering `fashion`.
+
+Similar extractions can be made from running the apis and comparing the data, with specific group by. The API offers support group by for `category` and `product` and `time` (year,month,day) as well as with dual group bys like category-day, category-mont, category-year, product_id-day, product_id-month, product_id-year.
+
 ## Documentation 📚
 
 The backend system consists of two major backend services:
@@ -112,5 +120,11 @@ sale_time_local = sale_time_utc.astimezone(user_timezone)
 ```
 
 By following this approach, you ensure that datetime data remains consistent and can be easily adapted to the user's preferred timezone, providing a seamless experience across different time zones.
+
+## Examples of use from demo data
+
+The folder examples in the root shows sample apis request bodies, to navigate and check the data. The major use case pushed for in this project was to get flexibility exploring database and comparison that could be enable by providing an interface or a mini ORM specific to our data and verify the responses. The responses from these can then be used to plot graphs acorss products,categories and timelines.
+
+For exploring the apis apart from the demo data, please refer to the collection thunderclient colleciton imported in examples,(thunderclient is a vscode extension like postman for validating apis).
 
 Happy exploring and managing your e-commerce backend! 🚀🛍️💹
