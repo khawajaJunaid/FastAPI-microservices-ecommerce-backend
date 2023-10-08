@@ -125,6 +125,6 @@ By following this approach, you ensure that datetime data remains consistent and
 
 The folder examples in the root shows sample apis request bodies, to navigate and check the data. The major use case pushed for in this project was to get flexibility exploring database and comparison that could be enable by providing an interface or a mini ORM specific to our data and verify the responses. The responses from these can then be used to plot graphs acorss products,categories and timelines.
 
-For exploring the apis apart from the demo data, please refer to the collection thunderclient colleciton imported in examples,(thunderclient is a vscode extension like postman for validating apis).
+For exploring the apis apart from the demo data, please refer to the collection thunderclient collections imported in ``/examples`` for both microservices,(thunderclient is a vscode extension like postman for validating apis).
 
 Happy exploring and managing your e-commerce backend! 🚀🛍️💹
