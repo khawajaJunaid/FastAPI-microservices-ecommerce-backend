@@ -31,6 +31,15 @@ Before running the project on your system, make sure you have the following:
 
    This command will start up the containers for the database and set up local mounts for persistence on your system.
 
+3. Once the containers have started, demo data can be loaded into the mysql database by executing a restoration command into the database from dump.
+
+```bash
+  docker exec -i ecommerce-db-1  sh -c 'exec mysql -u user  -ppassword mydatabase' < ./common/db/dump/dump.sql
+```
+
+**Note** : Incase the above command runs into an issue, the volume mount can instead be downloaded from `https://drive.google.com/drive/folders/1NLMc0dkwW-gDAlfAC5HrVxUcuyU-woCF?usp=sharing` and placed in the
+`common/db` and execute the above command as it is.
+
 ## Documentation 📚
 
 The backend system consists of two major backend services:
@@ -85,7 +94,6 @@ To explore the API using Swagger UI, FastAPI offers built-in documentation.
 
 - **sales-microservices** 💰:
   [Explore Sales Microservice API](http://localhost:8001/docs)
-
 
 # Additional Concerns 🌐⏰
 
