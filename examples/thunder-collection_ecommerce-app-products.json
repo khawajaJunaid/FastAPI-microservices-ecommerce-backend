@@ -1,0 +1,269 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "ecommerce-app-products",
+    "dateExported": "2023-10-08T18:12:42.998Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "9fad927d-e121-4f15-b5b8-f30145277f23",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "basic",
+            "url": "http://localhost:8000/products/",
+            "method": "GET",
+            "sortNum": 10000,
+            "created": "2023-09-30T20:40:11.434Z",
+            "modified": "2023-09-30T21:01:55.202Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "85696e5b-2795-41e3-b7b7-6aa0305efec1",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "view_product",
+            "url": "http://localhost:8000/products/get_product?product_id=9",
+            "method": "GET",
+            "sortNum": 15000,
+            "created": "2023-10-06T08:11:32.529Z",
+            "modified": "2023-10-08T12:51:12.055Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "product_id",
+                    "value": "9",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        },
+        {
+            "_id": "fba3ebcf-81d3-49f7-b435-009831af2630",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "create-product electronics",
+            "url": "http://localhost:8000/products/create",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-10-01T15:45:21.721Z",
+            "modified": "2023-10-08T12:03:19.547Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"Ophone 15 pro max\",\n    \"description\": \"This is an example product for electronics category.\",\n    \"price\": 2000,\n    \"image\": \"https://images.unsplash.com/photo-1546054454-aa26e2b734c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80\",\n    \"category_name\": \"electronics\",\n    \"current_inventory\":15\n}\n",
+                "form": []
+            },
+            "tests": [],
+            "preReq": {
+                "runRequests": [
+                    {
+                        "reqId": "33b1668c-a183-4555-869a-d401a01b7d13",
+                        "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+                        "triggerCondition": "run-always",
+                        "triggerValue": ""
+                    }
+                ]
+            }
+        },
+        {
+            "_id": "28c7d7ea-3854-47cd-83f6-9f4ca5a35036",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "create-product electronics",
+            "url": "http://localhost:8000/products/create",
+            "method": "POST",
+            "sortNum": 25000,
+            "created": "2023-10-08T12:03:24.438Z",
+            "modified": "2023-10-08T12:48:26.857Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"Ophone 14\",\n    \"description\": \"This is an example product for electronics category.\",\n    \"price\": 1000,\n    \"image\": \"https://images.unsplash.com/photo-1546054454-aa26e2b734c7?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=880&q=80\",\n    \"category_name\": \"electronics\",\n    \"current_inventory\":15\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "98f44c42-dc1a-4e78-82ba-667c2178101e",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "create-product fashion",
+            "url": "http://localhost:8000/products/create",
+            "method": "POST",
+            "sortNum": 27500,
+            "created": "2023-10-08T12:03:56.658Z",
+            "modified": "2023-10-08T12:49:19.635Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"sweater\",\n    \"description\": \"This is an example product for fashion category.\",\n    \"price\": 1500,\n    \"image\": \"https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1005&q=80\",\n    \"category_name\": \"fashion\",\n    \"current_inventory\":15\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "82983559-f6de-4b33-a878-e0d03a00a610",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "create-product fashion Copy",
+            "url": "http://localhost:8000/products/create",
+            "method": "POST",
+            "sortNum": 28750,
+            "created": "2023-10-08T12:06:15.869Z",
+            "modified": "2023-10-08T12:49:27.420Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"cardigan\",\n    \"description\": \"This is an example product for fashion category.\",\n    \"price\": 1000,\n    \"image\": \"https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1005&q=80\",\n    \"category_name\": \"fashion\",\n    \"current_inventory\":10\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e0a3f2ec-ba9c-42a4-9c82-05cdb0304bc2",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "create-product toys",
+            "url": "http://localhost:8000/products/create",
+            "method": "POST",
+            "sortNum": 29375,
+            "created": "2023-10-08T12:07:10.495Z",
+            "modified": "2023-10-08T12:49:35.307Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"lego bricks\",\n    \"description\": \"This is an example product for toys category.\",\n    \"price\": 400,\n    \"image\": \"https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1005&q=80\",\n    \"category_name\": \"toys\",\n    \"current_inventory\":10\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "0f6f613f-ff1b-46dc-882e-03ef878acf4e",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "create-product toys Copy",
+            "url": "http://localhost:8000/products/create",
+            "method": "POST",
+            "sortNum": 29687.5,
+            "created": "2023-10-08T12:08:14.938Z",
+            "modified": "2023-10-08T12:49:40.905Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"ironman action bot\",\n    \"description\": \"This is an example product for fashion category.\",\n    \"price\": 500,\n    \"image\": \"https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1005&q=80\",\n    \"category_name\": \"toys\",\n    \"current_inventory\":10\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "18aebedb-88b4-4786-a412-d1f4a7a7d485",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "create-product home",
+            "url": "http://localhost:8000/products/create",
+            "method": "POST",
+            "sortNum": 29843.8,
+            "created": "2023-10-08T12:10:09.446Z",
+            "modified": "2023-10-08T12:49:46.197Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"decoration plants\",\n    \"description\": \"This is an example product for home category.\",\n    \"price\": 500,\n    \"image\": \"https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1005&q=80\",\n    \"category_name\": \"home\",\n    \"current_inventory\":10\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "4b14fd29-7bc1-4fd1-bcf3-98949b268dfb",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "create-product home Copy",
+            "url": "http://localhost:8000/products/create",
+            "method": "POST",
+            "sortNum": 29921.9,
+            "created": "2023-10-08T12:11:46.703Z",
+            "modified": "2023-10-08T12:49:51.174Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"name\": \"comfortable chair\",\n    \"description\": \"This is an example product for home category.\",\n    \"price\": 1200,\n    \"image\": \"https://images.unsplash.com/photo-1434389677669-e08b4cac3105?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1005&q=80\",\n    \"category_name\": \"home\",\n    \"current_inventory\":10\n}\n",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "33b1668c-a183-4555-869a-d401a01b7d13",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "create-category",
+            "url": "http://localhost:8000/products/create_category",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-10-03T12:30:24.521Z",
+            "modified": "2023-10-08T12:48:21.054Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"name\":\"personal_care\",\n  \"description\": \"All cosmetic equipment and skin care\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f5487fb9-83f0-44d9-ace5-1e317500f1d3",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "set_product_inv",
+            "url": "http://localhost:8000/products/update/?product_id=1",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-10-05T10:35:50.590Z",
+            "modified": "2023-10-08T11:00:42.147Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "product_id",
+                    "value": "1",
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n    \"current_inventory\": 7,\n    \"price\":100.0\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "83822d84-5dda-4a75-b8b1-d3e629c1641d",
+            "colId": "a16aedc6-c5ba-4f34-962a-6b1438042784",
+            "containerId": "",
+            "name": "get-inventory",
+            "url": "http://localhost:8000/products/inventory_history?product_id=2",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-10-06T10:41:23.046Z",
+            "modified": "2023-10-08T13:26:13.681Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "product_id",
+                    "value": "2",
+                    "isPath": false
+                }
+            ],
+            "tests": []
+        }
+    ]
+}

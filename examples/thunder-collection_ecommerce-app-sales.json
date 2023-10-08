@@ -1,0 +1,158 @@
+{
+    "client": "Thunder Client",
+    "collectionName": "ecommerce-app-sales",
+    "dateExported": "2023-10-08T18:32:30.759Z",
+    "version": "1.1",
+    "folders": [],
+    "requests": [
+        {
+            "_id": "3dab5f9d-1b22-45ce-b521-b4f2c39dc8db",
+            "colId": "aba589ab-ef47-49c2-b493-909e4c55b184",
+            "containerId": "",
+            "name": "create_sales",
+            "url": "http://localhost:8001/sales/create",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-10-07T11:35:44.354Z",
+            "modified": "2023-10-08T13:27:04.600Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"product_id\": 3,\n  \"category_name\": \"fashion\",\n  \"units_sold\": 1\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "be63a746-fb9b-441a-a7e1-19df59083e6d",
+            "colId": "aba589ab-ef47-49c2-b493-909e4c55b184",
+            "containerId": "",
+            "name": "get_sales_filters_product_id",
+            "url": "http://localhost:8001/sales/retrieve_sales",
+            "method": "POST",
+            "sortNum": 20000,
+            "created": "2023-10-07T18:33:17.976Z",
+            "modified": "2023-10-08T18:16:41.589Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "category",
+                    "value": "electronics",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\r\n  \"product_id\": 3\r\n\r\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "f266ac57-8b50-4b23-828c-4e08b2ede43c",
+            "colId": "aba589ab-ef47-49c2-b493-909e4c55b184",
+            "containerId": "",
+            "name": "get_sales_filters_start_date_end_Date",
+            "url": "http://localhost:8001/sales/retrieve_sales",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-10-08T18:17:06.461Z",
+            "modified": "2023-10-08T18:18:25.319Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "category",
+                    "value": "electronics",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"product_id\": 3,\n  \"start_date\": \"2021-01-01\",\n  \"end_date\": \"2023-09-01\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "e9d1400f-ed1b-47e8-b620-625056ea2b47",
+            "colId": "aba589ab-ef47-49c2-b493-909e4c55b184",
+            "containerId": "",
+            "name": "get_sales_filters_group_by_product_id/categories_timeperiods",
+            "url": "http://localhost:8001/sales/retrieve_sales",
+            "method": "POST",
+            "sortNum": 32500,
+            "created": "2023-10-08T18:29:51.711Z",
+            "modified": "2023-10-08T18:30:27.843Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "category",
+                    "value": "electronics",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n\n    \"start_date\": \"2021-01-01\",\n    \"end_date\" :\"2024-01-01\",\n    \"group_by\":\"category-year\"\n\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "fbea32d9-0f25-4f7b-91bf-4e781e72780b",
+            "colId": "aba589ab-ef47-49c2-b493-909e4c55b184",
+            "containerId": "",
+            "name": "get_sales_filters_group_by",
+            "url": "http://localhost:8001/sales/retrieve_sales",
+            "method": "POST",
+            "sortNum": 35000,
+            "created": "2023-10-08T18:28:25.866Z",
+            "modified": "2023-10-08T18:29:25.594Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "category",
+                    "value": "electronics",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n\n    \"start_date\": \"2021-01-01\",\n    \"end_date\" :\"2024-01-01\",\n    \"group_by\":\"year\"\n\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "d335fe28-71dd-44f6-abb7-415461e03716",
+            "colId": "aba589ab-ef47-49c2-b493-909e4c55b184",
+            "containerId": "",
+            "name": "get_sales_filters_category",
+            "url": "http://localhost:8001/sales/retrieve_sales",
+            "method": "POST",
+            "sortNum": 40000,
+            "created": "2023-10-08T18:17:10.680Z",
+            "modified": "2023-10-08T18:19:20.993Z",
+            "headers": [],
+            "params": [
+                {
+                    "name": "category",
+                    "value": "electronics",
+                    "isDisabled": true,
+                    "isPath": false
+                }
+            ],
+            "body": {
+                "type": "json",
+                "raw": "{\n\n    \"category\": \"fashion\"\n\n}",
+                "form": []
+            },
+            "tests": []
+        }
+    ]
+}
