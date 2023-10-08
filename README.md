@@ -86,7 +86,6 @@ To explore the API using Swagger UI, FastAPI offers built-in documentation.
 - **sales-microservices** 💰:
   [Explore Sales Microservice API](http://localhost:8001/docs)
 
-Certainly! Here's the additional concerns section in your documentation, beautified with a heading and code example:
 
 # Additional Concerns 🌐⏰
 
