@@ -1,4 +1,3 @@
-
 # 🛒 E-Commerce Manager Backend 📈
 
 Welcome to the back-end API that powers a web admin dashboard for e-commerce managers. This API provides detailed insights into sales, revenue, and inventory status, as well as allows new product registration.
@@ -86,5 +85,25 @@ To explore the API using Swagger UI, FastAPI offers built-in documentation.
 
 - **sales-microservices** 💰:
   [Explore Sales Microservice API](http://localhost:8001/docs)
+
+Certainly! Here's the additional concerns section in your documentation, beautified with a heading and code example:
+
+# Additional Concerns 🌐⏰
+
+In cases where the timezone of the data and the user's timezone may differ, it's crucial to handle datetime appropriately to ensure consistency and accuracy. Here are some considerations and a code example to illustrate how to handle datetime using Python and a database.
+
+## Handling Different Timezones ⏰
+
+To manage datetime differences, it's recommended to use UTC timestamps consistently throughout your application. UTC (Coordinated Universal Time) provides a standardized reference point and avoids ambiguity that can arise from timezones.
+
+Here's an example of how to handle datetime conversion between UTC and a user's timezone using Python:
+
+```python
+sale_time_utc = retrieve_sale_time_from_database()
+sale_time_local = sale_time_utc.astimezone(user_timezone)
+
+```
+
+By following this approach, you ensure that datetime data remains consistent and can be easily adapted to the user's preferred timezone, providing a seamless experience across different time zones.
 
 Happy exploring and managing your e-commerce backend! 🚀🛍️💹
