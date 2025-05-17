@@ -34,7 +34,7 @@ Before running the project on your system, make sure you have the following:
 3. Once the containers have started, demo data can be loaded into the mysql database by executing a restoration command into the database from dump.
 
 ```bash
-  docker exec -i ecommerce-db-1 sh -c 'exec mysql -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE' < ./common/db/dump/dump.sql
+  docker exec -i fastapi-microservices-ecommerce-backend-db-1 sh -c 'exec mysql -u $MYSQL_USER -p$MYSQL_PASSWORD $MYSQL_DATABASE' < ./common/db/dump/dump.sql
 ```
 
 **Note** : Incase the above command runs into an issue, the volume mount can instead be downloaded from [demo data volume mount](https://drive.google.com/drive/folders/1eb_5FaXY5tzV_EfCKPYFTbNNjvbM-Bg5?usp=sharing) and placed in the
